@@ -23,6 +23,8 @@ class ImageDetailsViewController: UIViewController {
         setupContentView()
         setupImage()
         setupCloseButton()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView(_:)))
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func setupContentView() {
@@ -41,11 +43,14 @@ class ImageDetailsViewController: UIViewController {
     
     func setupCloseButton() {
         closeButton = UIButton(type: UIButton.ButtonType.custom)
-        let buttonImage = UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .thin))?.withRenderingMode(.alwaysTemplate)
+        let buttonImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(buttonImage, for: .normal)
+        closeButton.layer.borderWidth = 1
+        closeButton.layer.borderColor = UIColor.white.cgColor
+        closeButton.layer.cornerRadius = 20
         
-        closeButton.contentVerticalAlignment = .fill
-        closeButton.contentHorizontalAlignment = .fill
+        closeButton.contentVerticalAlignment = .center
+        closeButton.contentHorizontalAlignment = .center
         closeButton.imageEdgeInsets = .zero
         closeButton.tintColor = .white
         
@@ -93,6 +98,10 @@ class ImageDetailsViewController: UIViewController {
                                      imageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)])
         
         
+    }
+    
+    @objc private func didTapOnView(_ sender: UITapGestureRecognizer) {
+        closeButton.isHidden = !closeButton.isHidden
     }
 
 }

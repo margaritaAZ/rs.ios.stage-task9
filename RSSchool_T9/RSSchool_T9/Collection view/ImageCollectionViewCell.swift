@@ -47,23 +47,21 @@ class ImageCollectionViewCell: UICollectionViewCell {
                                      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)])
         
 //        gradient
-//        gradientLayer.frame = contentView.frame
+        gradientLayer.frame = contentView.frame
         gradientLayer.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.withAlphaComponent(1).cgColor]
 
         gradientLayer.cornerRadius = 8
-        gradientLayer.locations = [0.75, 1]
+        gradientLayer.locations = [0.65, 0.9, 1]
         
-        contentView.layer.addSublayer(gradientLayer)
-//        imageView.layer.addSublayer(gradientLayer)
         
-//        let gradientView = UIView()
-//        gradientView.layer.addSublayer(gradientLayer)
-//        gradientView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.addSubview(gradientView)
-//        NSLayoutConstraint.activate([gradientView.topAnchor.constraint(equalTo: imageView.topAnchor),
-//                                     gradientView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-//                                     gradientView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-//                                     gradientView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)])
+        let gradientView = UIView()
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.addSubview(gradientView)
+        NSLayoutConstraint.activate([gradientView.topAnchor.constraint(equalTo: imageView.topAnchor),
+                                     gradientView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+                                     gradientView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+                                     gradientView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)])
 
         
         
@@ -73,7 +71,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         itemTitle.font = UIFont(name: "Rockwell-Regular", size: 16)
         itemTitle.contentHuggingPriority(for: .vertical)
         
-        imageView.addSubview(itemTitle)
+        gradientView.addSubview(itemTitle)
         itemTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([itemTitle.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 150),
                                         itemTitle.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -30),
@@ -84,7 +82,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         itemType.font = UIFont(name: "Rockwell-Regular", size: 12)
         itemType.contentHuggingPriority(for: .vertical)
         
-        imageView.addSubview(itemType)
+        gradientView.addSubview(itemType)
         itemType.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([itemType.heightAnchor.constraint(equalToConstant: 14),
                                      itemType.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -13),

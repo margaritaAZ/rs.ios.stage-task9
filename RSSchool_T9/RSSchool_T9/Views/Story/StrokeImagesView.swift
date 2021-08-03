@@ -10,62 +10,64 @@
 import UIKit
 
 class StrokeImagesView: UIView {
-    var scrollView = UIScrollView()
-    var contentView = UIView()
-    var stackView = UIStackView()
-    
-
+    var collectionView: UICollectionView!
+    var paths: [CGPath]!
+    var images: [StoryImageView]?
+        
     func setupViews(paths: [CGPath]) {
-        scrollView.delegate = self
-        addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: topAnchor),
-                                     scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                                     scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                                     scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                                     scrollView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-        
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-        
-        let contentWidthConstraint = contentView.widthAnchor.constraint(equalTo: widthAnchor)
-        contentWidthConstraint.priority = UILayoutPriority(1)
-        NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                                     contentWidthConstraint,
-                                     contentView.heightAnchor.constraint(equalTo: heightAnchor)
-        ])
-
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 100
-        stackView.alignment = .center
-
+        self.paths = paths
         for path in paths {
             let animatedImage = StoryImageView()
             animatedImage.initWithPath(path)
-            animatedImage.translatesAutoresizingMaskIntoConstraints = true
-            animatedImage.widthAnchor.constraint(equalToConstant: 75).isActive = true
-            animatedImage.heightAnchor.constraint(equalToConstant: 75).isActive = true
-            stackView.addArrangedSubview(animatedImage)
+            animatedImage.addShapeLayer()
+            if images == nil {
+                images = [animatedImage]
+            } else {
+                images?.append(animatedImage)
+            }
         }
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-        NSLayoutConstraint.activate([stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
-                                     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-                                     stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                                     stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)])
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: 100, height: 100)
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 20)
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 100
+        collectionView = UICollectionView(frame: self.frame, collectionViewLayout: flowLayout)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
+        
+        addSubview(collectionView)
+        collectionView.dataSource = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([collectionView.topAnchor.constraint(equalTo: topAnchor),
+                                     collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                                     collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                                     collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                                     collectionView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
 }
 
-extension StrokeImagesView: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-////        print(scrollView.contentOffset)
-//        if scrollView.contentOffset.x > self.frame.width {
-//
-//        }
-//    }
+extension StrokeImagesView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
+        guard let cellImages = images else {
+            return cell
+        }
+        cell.addSubview(cellImages[indexPath.row])
+        cellImages[indexPath.row].addAnimation()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return paths.count
+    }
+}
+
+extension StrokeImagesView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cellImages = images else {
+            return
+        }
+        cellImages[indexPath.row].removeAnimations()
+        cellImages[indexPath.row].addAnimation()
+    }
 }

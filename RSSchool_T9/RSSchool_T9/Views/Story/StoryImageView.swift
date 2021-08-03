@@ -22,21 +22,28 @@ import UIKit
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-         drawPath()
     }
     
-    func drawPath() {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = StoryImageView.isAnimated ? 3 : 0
-        animation.fromValue = 0
-        animation.toValue = 1
+    func addShapeLayer() {
         
         shapeLayer = CAShapeLayer()
         shapeLayer.path = path
         shapeLayer.fillColor = nil
         shapeLayer.strokeColor = StoryImageView.color.cgColor
-        shapeLayer.add(animation, forKey: "strokeEnd")
         self.layer.addSublayer(shapeLayer)
+    }
+    
+    func addAnimation() {
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = StoryImageView.isAnimated ? 3 : 0
+        animation.fromValue = 0
+        animation.toValue = 1
+        shapeLayer.add(animation, forKey: "strokeEnd")
+    }
+    
+    func removeAnimations () {
+        shapeLayer.removeAllAnimations()
     }
 
 }

@@ -21,7 +21,7 @@ class ItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-
+        
         setupScrollView()
         setupContentView()
         setupCloseButton()
@@ -46,21 +46,24 @@ class ItemViewController: UIViewController {
         let contentHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor)
         contentHeightConstraint.priority = UILayoutPriority(1)
         NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 25),
+                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                                      contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -25),
-                                     contentView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -50),
+                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+                                     contentView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
                                      contentHeightConstraint
         ])
     }
     
     func setupCloseButton() {
         closeButton = UIButton(type: UIButton.ButtonType.custom)
-        let buttonImage = UIImage(systemName: "xmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .thin))?.withRenderingMode(.alwaysTemplate)
+        let buttonImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(buttonImage, for: .normal)
+        closeButton.layer.borderWidth = 1
+        closeButton.layer.borderColor = UIColor.white.cgColor
+        closeButton.layer.cornerRadius = 20
         
-        closeButton.contentVerticalAlignment = .fill
-        closeButton.contentHorizontalAlignment = .fill
+        closeButton.contentVerticalAlignment = .center
+        closeButton.contentHorizontalAlignment = .center
         closeButton.imageEdgeInsets = .zero
         closeButton.tintColor = .white
         
@@ -94,6 +97,24 @@ class ItemViewController: UIViewController {
                                      imageView.heightAnchor.constraint(equalToConstant: imageView.intrinsicContentSize.height),
                                      imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                                      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
+        
+        //        gradient
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = imageView.frame
+        gradientLayer.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.withAlphaComponent(1).cgColor]
+        
+        gradientLayer.cornerRadius = 10
+        gradientLayer.locations = [0.65, 0.9, 1]
+        
+        
+        let gradientView = UIView()
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.addSubview(gradientView)
+        NSLayoutConstraint.activate([gradientView.topAnchor.constraint(equalTo: imageView.topAnchor),
+                                     gradientView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+                                     gradientView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+                                     gradientView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)])
         
         //type
         typeLabel.textColor = .white
@@ -134,7 +155,7 @@ class ItemViewController: UIViewController {
         line.heightAnchor.constraint(equalToConstant: 1).isActive = true
         line.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 40).isActive = true
         line.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-
+        
     }
     
     
