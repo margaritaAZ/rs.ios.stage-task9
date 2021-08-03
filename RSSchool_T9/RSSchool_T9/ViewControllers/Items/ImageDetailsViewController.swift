@@ -25,6 +25,8 @@ class ImageDetailsViewController: UIViewController {
         setupCloseButton()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView(_:)))
         view.addGestureRecognizer(tapGestureRecognizer)
+        
+        scrollView.delegate = self
     }
     
     func setupContentView() {
@@ -33,10 +35,10 @@ class ImageDetailsViewController: UIViewController {
         view.addSubview(contentView)
         let contentHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor)
         contentHeightConstraint.priority = UILayoutPriority(1)
-        NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: view.topAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        NSLayoutConstraint.activate([contentView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     contentView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     contentView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                                     contentView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -75,14 +77,15 @@ class ImageDetailsViewController: UIViewController {
         scrollView.isScrollEnabled = false
         contentView.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//                                     scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//                                     scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//                                     scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
-        NSLayoutConstraint.activate([scrollView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-                                     scrollView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-                                     scrollView.heightAnchor.constraint(equalToConstant: 552),
-                                     scrollView.widthAnchor.constraint(equalToConstant: 414)])
+        
+        NSLayoutConstraint.activate([scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+                                     scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
+                                     scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
+                                     scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+                                     scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
+                                     scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.heightAnchor)
+        ])
+        
         
         imageView = UIImageView(image: image)
         imageView.clipsToBounds = true
@@ -90,12 +93,10 @@ class ImageDetailsViewController: UIViewController {
         scrollView.addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                                     imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                                     imageView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-                                     imageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)])
+        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+                                     imageView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+                                     imageView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+                                     imageView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor)])
         
         
     }
@@ -103,5 +104,10 @@ class ImageDetailsViewController: UIViewController {
     @objc private func didTapOnView(_ sender: UITapGestureRecognizer) {
         closeButton.isHidden = !closeButton.isHidden
     }
+}
 
+extension ImageDetailsViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
 }
