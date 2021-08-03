@@ -33,6 +33,9 @@
 		F3BA38E426B6E56C00EEC42D /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38E326B6E56B00EEC42D /* StoryViewController.swift */; };
 		F3BA38E826B723CE00EEC42D /* StoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38E726B723CE00EEC42D /* StoryImageView.swift */; };
 		F3BA38EE26B8439400EEC42D /* StrokeImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38ED26B8439400EEC42D /* StrokeImagesView.swift */; };
+		F3BA38F026B8530700EEC42D /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38EF26B8530700EEC42D /* GalleryViewController.swift */; };
+		F3BA38F426B93F4F00EEC42D /* GalleryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38F326B93F4F00EEC42D /* GalleryImageView.swift */; };
+		F3BA38F626B94A8000EEC42D /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38F526B94A8000EEC42D /* ImageDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +71,9 @@
 		F3BA38E326B6E56B00EEC42D /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		F3BA38E726B723CE00EEC42D /* StoryImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryImageView.swift; sourceTree = "<group>"; };
 		F3BA38ED26B8439400EEC42D /* StrokeImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeImagesView.swift; sourceTree = "<group>"; };
+		F3BA38EF26B8530700EEC42D /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		F3BA38F326B93F4F00EEC42D /* GalleryImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImageView.swift; sourceTree = "<group>"; };
+		F3BA38F526B94A8000EEC42D /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,10 +184,8 @@
 		F3BA38BD26B1B30700EEC42D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F3BA38F126B875DB00EEC42D /* Items */,
 				F3BA38DE26B4102600EEC42D /* Settings */,
-				F3BA38C026B1B38600EEC42D /* ItemsViewController.swift */,
-				F3BA38E026B5BC3200EEC42D /* ItemViewController.swift */,
-				F3BA38E326B6E56B00EEC42D /* StoryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -189,8 +193,8 @@
 		F3BA38CC26B1CCC000EEC42D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3BA38E726B723CE00EEC42D /* StoryImageView.swift */,
-				F3BA38ED26B8439400EEC42D /* StrokeImagesView.swift */,
+				F3BA38F226B93EDF00EEC42D /* Story */,
+				F3BA38F326B93F4F00EEC42D /* GalleryImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +217,27 @@
 				F3BA38DF26B4296800EEC42D /* ColorSelectionViewControllerDelegate.h */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		F3BA38F126B875DB00EEC42D /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				F3BA38C026B1B38600EEC42D /* ItemsViewController.swift */,
+				F3BA38E026B5BC3200EEC42D /* ItemViewController.swift */,
+				F3BA38E326B6E56B00EEC42D /* StoryViewController.swift */,
+				F3BA38EF26B8530700EEC42D /* GalleryViewController.swift */,
+				F3BA38F526B94A8000EEC42D /* ImageDetailsViewController.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		F3BA38F226B93EDF00EEC42D /* Story */ = {
+			isa = PBXGroup;
+			children = (
+				F3BA38E726B723CE00EEC42D /* StoryImageView.swift */,
+				F3BA38ED26B8439400EEC42D /* StrokeImagesView.swift */,
+			);
+			path = Story;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,13 +326,16 @@
 				2BB9E75C26AB605700112651 /* AppDelegate.swift in Sources */,
 				2BB9F30B26AF5EEC00F43852 /* story-3-path.swift in Sources */,
 				F3BA38CA26B1B3ED00EEC42D /* SettingsViewController.m in Sources */,
+				F3BA38F026B8530700EEC42D /* GalleryViewController.swift in Sources */,
 				2BB9F29126ADFAF100F43852 /* Data.swift in Sources */,
 				F3BA38E126B5BC3200EEC42D /* ItemViewController.swift in Sources */,
 				F3BA38DD26B34BDE00EEC42D /* ColorSelectionViewController.m in Sources */,
 				F3BA38E826B723CE00EEC42D /* StoryImageView.swift in Sources */,
 				F3BA38E426B6E56C00EEC42D /* StoryViewController.swift in Sources */,
 				F3BA38C126B1B38600EEC42D /* ItemsViewController.swift in Sources */,
+				F3BA38F626B94A8000EEC42D /* ImageDetailsViewController.swift in Sources */,
 				F3BA38CE26B1CD0700EEC42D /* ImageCollectionViewCell.swift in Sources */,
+				F3BA38F426B93F4F00EEC42D /* GalleryImageView.swift in Sources */,
 				2BB9F2EC26AF1F6200F43852 /* story-1-path.swift in Sources */,
 				2BB9F30E26AF5FA900F43852 /* story-4-path.swift in Sources */,
 				2BB9E75E26AB605700112651 /* SceneDelegate.swift in Sources */,

@@ -10,6 +10,7 @@
 #import "SettingsViewController.h"
 #import "ColorSelectionViewController.h"
 #import "ColorSelectionViewControllerDelegate.h"
+#import "RSSchool_T9-Swift.h"
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate, ColorSelectionViewControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -81,6 +82,7 @@
 
 - (void) updateIsDrawStories: (UISwitch *) sender {
     self.isDrawStories = sender.on;
+    StoryImageView.isAnimated = self.isDrawStories;
 }
 
 // MARK: UITableViewDelegate
@@ -98,6 +100,8 @@
 - (void) colorDidSelected: (NSString *) color {
     self.strokeColor = color;
     [self.tableView reloadData];
+    
+    StoryImageView.color = [UIColor colorNamed:color];
 }
 
 @end

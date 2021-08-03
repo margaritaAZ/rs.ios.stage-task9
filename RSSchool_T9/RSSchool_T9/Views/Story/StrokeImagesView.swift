@@ -15,14 +15,15 @@ class StrokeImagesView: UIView {
     var stackView = UIStackView()
     
 
-    func setupViews() {
+    func setupViews(paths: [CGPath]) {
+        scrollView.delegate = self
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: topAnchor),
                                      scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
                                      scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                                     scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
-//                                     scrollView.centerYAnchor.constraint(equalTo: centerYAnchor)
+                                     scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                                     scrollView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,16 +42,7 @@ class StrokeImagesView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.spacing = 100
-
-        let data = FillingData.data[0]
-        var paths: [CGPath]!
-
-        switch data {
-        case .story(let storyItem):
-            paths = storyItem.paths
-        default:
-            break
-        }
+        stackView.alignment = .center
 
         for path in paths {
             let animatedImage = StoryImageView()
@@ -67,4 +59,13 @@ class StrokeImagesView: UIView {
                                      stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
                                      stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)])
     }
+}
+
+extension StrokeImagesView: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+////        print(scrollView.contentOffset)
+//        if scrollView.contentOffset.x > self.frame.width {
+//
+//        }
+//    }
 }

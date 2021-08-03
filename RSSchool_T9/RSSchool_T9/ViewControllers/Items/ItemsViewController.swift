@@ -68,17 +68,20 @@ extension ItemsViewController: UICollectionViewDataSource {
 extension ItemsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let modalViewController = StoryViewController()
-        modalViewController.modalPresentationStyle = .overCurrentContext
-        present(modalViewController, animated: true, completion: nil)
         
-//        let data = FillingData.data[indexPath.row]
-//        switch data {
-//        case .story(let storyItem):
-//            
-//        case .gallery(let galleryItem):
-//            
-//        }
+        let data = FillingData.data[indexPath.row]
+        switch data {
+        case .story(let storyItem):
+            let storyVC = StoryViewController()
+            storyVC.storyData = storyItem
+            storyVC.modalPresentationStyle = .overCurrentContext
+            present(storyVC, animated: true, completion: nil)
+        case .gallery(let galleryItem):
+            let galleryVC = GalleryViewController()
+            galleryVC.galleryData = galleryItem
+            galleryVC.modalPresentationStyle = .overCurrentContext
+            present(galleryVC, animated: true, completion: nil)
+        }
     }
     
 }

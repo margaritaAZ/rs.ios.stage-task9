@@ -11,9 +11,9 @@ import UIKit
 
 class ItemViewController: UIViewController {
     var scrollView: UIScrollView!
-    var typeLabel: UILabel!
-    var titleLabel: UILabel!
-    var imageView: UIImageView!
+    var typeLabel: UILabel = UILabel()
+    var titleLabel: UILabel = UILabel()
+    var imageView: UIImageView = UIImageView()
     var closeButton: UIButton!
     var contentView: UIView!
     var line: UILabel!
@@ -25,15 +25,6 @@ class ItemViewController: UIViewController {
         setupScrollView()
         setupContentView()
         setupCloseButton()
-        setupCoverImage()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        contentView.layoutIfNeeded()
-//        scrollView.contentSize = contentView.frame.size
-////        scrollView.contentSize = CGSize(width: 414, height: 1595)
-//        print(contentView.frame.size)
     }
     
     func setupScrollView() {
@@ -52,22 +43,15 @@ class ItemViewController: UIViewController {
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
-        let contentHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        let contentHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor)
         contentHeightConstraint.priority = UILayoutPriority(1)
         NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 25),
                                      contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                                     contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -25),
+                                     contentView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -50),
                                      contentHeightConstraint
         ])
-        
-//        NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//                                             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-//                                             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//                                             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-//                ])
-        
     }
     
     func setupCloseButton() {
@@ -84,7 +68,7 @@ class ItemViewController: UIViewController {
         contentView.addSubview(closeButton)
         closeButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        closeButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 349).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
         
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: UIControl.Event.touchUpInside)
@@ -96,7 +80,7 @@ class ItemViewController: UIViewController {
     
     func setupCoverImage() {
         //      image
-        imageView = UIImageView(image: UIImage("story-1"))
+        imageView.image = UIImage("story-1")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,15 +92,13 @@ class ItemViewController: UIViewController {
         contentView.addSubview(imageView)
         NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100),
                                      imageView.heightAnchor.constraint(equalToConstant: imageView.intrinsicContentSize.height),
-                                     imageView.leadingAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leadingAnchor),
-                                     imageView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)])
+                                     imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                                     imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
         
         //type
-        typeLabel = UILabel()
-        typeLabel.text = "Story"
         typeLabel.textColor = .white
-        typeLabel.font = UIFont(name: "Rockwell-Regular", size: 24)
         typeLabel.textAlignment = .center
+        typeLabel.font = UIFont(name: "Rockwell-Regular", size: 24)
         typeLabel.layer.borderColor = UIColor.white.cgColor
         typeLabel.layer.borderWidth = 1
         typeLabel.layer.cornerRadius = 8
@@ -132,8 +114,6 @@ class ItemViewController: UIViewController {
         
         
         // title
-        titleLabel = UILabel()
-        titleLabel.text = "Man’s best friend"
         titleLabel.textColor = .white
         titleLabel.font = UIFont(name: "Rockwell-Regular", size: 48)
         titleLabel.numberOfLines = 0
@@ -142,7 +122,7 @@ class ItemViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 30),
                                      titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -30),
-                                     titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -55)])
+                                     titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -40)])
         
         
         // line

@@ -9,9 +9,12 @@
 
 import UIKit
 
-class StoryImageView: UIView {
+@objc class StoryImageView: UIView {
+    @objc public static var color: UIColor = UIColor(named: "#F3AF22")!
+    @objc public static var isAnimated: Bool = true
     var path: CGPath!
     var shapeLayer:CAShapeLayer!
+    
     
     func initWithPath(_ path: CGPath) {
         self.path = path
@@ -19,16 +22,19 @@ class StoryImageView: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+         drawPath()
+    }
+    
+    func drawPath() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = 3
+        animation.duration = StoryImageView.isAnimated ? 3 : 0
         animation.fromValue = 0
         animation.toValue = 1
         
         shapeLayer = CAShapeLayer()
         shapeLayer.path = path
         shapeLayer.fillColor = nil
-        shapeLayer.strokeColor = UIColor.init(named: "#F3AF22")?.cgColor
+        shapeLayer.strokeColor = StoryImageView.color.cgColor
         shapeLayer.add(animation, forKey: "strokeEnd")
         self.layer.addSublayer(shapeLayer)
     }
