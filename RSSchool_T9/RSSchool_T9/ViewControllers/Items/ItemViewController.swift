@@ -10,13 +10,17 @@
 import UIKit
 
 class ItemViewController: UIViewController {
-    var scrollView: UIScrollView!
-    var typeLabel: UILabel = UILabel()
-    var titleLabel: UILabel = UILabel()
-    var imageView: UIImageView = UIImageView()
-    var closeButton: UIButton!
-    var contentView: UIView!
-    var line: UILabel!
+    var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     var gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.withAlphaComponent(1).cgColor]
@@ -25,14 +29,30 @@ class ItemViewController: UIViewController {
         return layer
     }()
     
+    var closeButton: UIButton!
+    var typeLabel: UILabel = UILabel()
+    var titleLabel: UILabel = UILabel()
+    var imageView: UIImageView = UIImageView()
+    var line: UILabel = {
+        let line = UILabel()
+        line.backgroundColor = .white
+        return line
+    }()
+    
+    let padding: CGFloat = 20
+    var coverImageWidthConstraint: NSLayoutConstraint?
+    var coverImageHeightConstraint: NSLayoutConstraint?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
-        setupScrollView()
-        setupContentView()
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         setupCloseButton()
+        setupCoverImage()
     }
     
     override func viewDidLayoutSubviews() {
@@ -40,53 +60,19 @@ class ItemViewController: UIViewController {
         gradientLayer.frame = imageView.bounds
     }
     
-    func setupScrollView() {
-        scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-                                     scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                                     scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
-        
-    }
-    
-    func setupContentView() {
-        contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-        let contentHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor)
-        contentHeightConstraint.priority = UILayoutPriority(1)
-        NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-                                     contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-                                     contentView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
-                                     contentHeightConstraint
-        ])
-    }
-    
-    func setupCloseButton() {
+    func setupCloseButton(){
         closeButton = UIButton(type: UIButton.ButtonType.custom)
         let buttonImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?.withRenderingMode(.alwaysTemplate)
         closeButton.setImage(buttonImage, for: .normal)
         closeButton.layer.borderWidth = 1
         closeButton.layer.borderColor = UIColor.white.cgColor
         closeButton.layer.cornerRadius = 20
-        
         closeButton.contentVerticalAlignment = .center
         closeButton.contentHorizontalAlignment = .center
         closeButton.imageEdgeInsets = .zero
         closeButton.tintColor = .white
-        
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(closeButton)
-        closeButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
-        
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: UIControl.Event.touchUpInside)
     }
     
@@ -99,23 +85,15 @@ class ItemViewController: UIViewController {
         imageView.image = UIImage("story-1")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.white.cgColor
         
         contentView.addSubview(imageView)
-        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100),
-                                     imageView.heightAnchor.constraint(equalToConstant: imageView.intrinsicContentSize.height),
-                                     imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                     imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         //        gradient
-        
-//        gradientLayer.frame = imageView.frame
-        
-        
         let gradientView = UIView()
         gradientView.layer.addSublayer(gradientLayer)
         gradientView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,13 +113,6 @@ class ItemViewController: UIViewController {
         typeLabel.layer.backgroundColor = UIColor.black.cgColor
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(typeLabel)
-        NSLayoutConstraint.activate([typeLabel.widthAnchor.constraint(equalToConstant: typeLabel.intrinsicContentSize.width + 30*2),
-                                     typeLabel.heightAnchor.constraint(equalToConstant: 40),
-                                     typeLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                                     typeLabel.centerYAnchor.constraint(equalTo: imageView.bottomAnchor)])
-        
-        
-        
         
         // title
         titleLabel.textColor = .white
@@ -150,21 +121,66 @@ class ItemViewController: UIViewController {
         titleLabel.lineBreakMode = .byWordWrapping
         imageView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // label title
         NSLayoutConstraint.activate([titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 30),
                                      titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -30),
                                      titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -40)])
         
-        
         // line
-        line = UILabel()
-        line.backgroundColor = .white
         contentView.addSubview(line)
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.widthAnchor.constraint(equalToConstant: 214).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        line.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 40).isActive = true
-        line.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 100),
+                                     line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -100),
+                                     line.heightAnchor.constraint(equalToConstant: 1),
+                                     line.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 40),
+                                     line.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)])
+    
+    }
+    
+    func setConstraints() {
+        // scrollView to view
+        NSLayoutConstraint.activate([scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                                     scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                     scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor)
+        ])
         
+        // contentView to scroll content
+        NSLayoutConstraint.activate([contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+                                     contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: padding),
+                                     contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+                                     contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -padding)
+        ])
+        
+        // close button
+        NSLayoutConstraint.activate([closeButton.widthAnchor.constraint(equalToConstant: 40),
+                                     closeButton.heightAnchor.constraint(equalToConstant: 40),
+                                     closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+                                     closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30)])
+        
+        // label type
+        NSLayoutConstraint.activate([typeLabel.widthAnchor.constraint(equalToConstant: typeLabel.intrinsicContentSize.width + 30*2),
+                                     typeLabel.heightAnchor.constraint(equalToConstant: 40),
+                                     typeLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                                     typeLabel.centerYAnchor.constraint(equalTo: imageView.bottomAnchor)])
+        
+        //imageView
+        let aspectRatio: CGFloat = 518/374
+        var width = view.safeAreaLayoutGuide.layoutFrame.size.width - padding*2
+        if UIDevice.current.orientation.isLandscape {
+            width = view.safeAreaLayoutGuide.layoutFrame.size.height - padding*2
+        }
+        let height = width*aspectRatio
+        coverImageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: width)
+        coverImageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: height)
+        
+        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100),
+                                     imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                                     coverImageWidthConstraint!, coverImageHeightConstraint!])
+        
+
     }
     
     

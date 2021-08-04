@@ -102,12 +102,8 @@ extension ItemsViewController: UICollectionViewDelegate {
             present(galleryVC, animated: true, completion: nil)
         }
     }
-}
-
-//MARK: UICollectionViewDelegateFlowLayout
-extension ItemsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+    
+    func getItemSize() -> (width:CGFloat, height:CGFloat) {
         let aspectRatio:CGFloat = 220/179
         let paddings:CGFloat = 50
         let freeWidth = collectionView.frame.size.width - paddings
@@ -118,8 +114,30 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
             itemHeight = collectionView.frame.size.height - paddings
             itemWidth = itemHeight/aspectRatio
         }
-        
-        return CGSize(width: itemWidth, height: itemHeight)
+        return (width: itemWidth, height: itemHeight)
+    }
+}
+
+//MARK: UICollectionViewDelegateFlowLayout
+extension ItemsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemSize = getItemSize()
+        return CGSize(width: itemSize.width, height: itemSize.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if UIDevice.current.orientation.isLandscape{
+            let itemSize = getItemSize()
+            return collectionView.frame.size.width - 60 - itemSize.width*2
+        }
+    return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if UIDevice.current.orientation.isLandscape{
+            return 10
+        }
+        return 10
     }
 }
 

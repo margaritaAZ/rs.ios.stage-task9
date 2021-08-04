@@ -12,6 +12,8 @@ import UIKit
 class GalleryViewController: ItemViewController {
     var galleryData: Gallery!
     var imageCollection: UIView!
+    var stackView = UIStackView()
+    
     
     
     override func viewDidLoad() {
@@ -25,19 +27,16 @@ class GalleryViewController: ItemViewController {
         imageView.image = galleryData.coverImage
         
         setupImages()
+        setConstraints()
     }
-    
     
     func setupImages() {
         imageCollection = UIView()
         contentView.addSubview(imageCollection)
         imageCollection.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([imageCollection.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 40),
-                                     imageCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                                     imageCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                     imageCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
         
-        let stackView = UIStackView()
+        
+        stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.spacing = 20
@@ -47,7 +46,7 @@ class GalleryViewController: ItemViewController {
             imageView.setupImage(galleryData.images[i])
             imageView.translatesAutoresizingMaskIntoConstraints = true
             let aspectRatio:CGFloat = 511/374
-            let width = view.frame.size.width - 50
+            let width = view.safeAreaLayoutGuide.layoutFrame.size.width - padding*2
             
             imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: width*aspectRatio).isActive = true
@@ -59,13 +58,22 @@ class GalleryViewController: ItemViewController {
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         imageCollection.addSubview(stackView)
+    }
+    
+    override func setConstraints() {
+        super.setConstraints()
+        NSLayoutConstraint.activate([imageCollection.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 40),
+                                     imageCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                                     imageCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                                     imageCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
+        
         NSLayoutConstraint.activate([stackView.leadingAnchor.constraint(equalTo: imageCollection.leadingAnchor),
                                      stackView.trailingAnchor.constraint(equalTo: imageCollection.trailingAnchor),
                                      stackView.topAnchor.constraint(equalTo: imageCollection.topAnchor),
-                                     stackView.bottomAnchor.constraint(equalTo: imageCollection.bottomAnchor)])
-        
-
+                                     stackView.bottomAnchor.constraint(equalTo: imageCollection.bottomAnchor),
+                                     stackView.widthAnchor.constraint(equalTo: imageCollection.widthAnchor)])
     }
+    
     @objc private func didTapImageView(_ sender: UITapGestureRecognizer) {
         let imageVC = ImageDetailsViewController()
         imageVC.modalPresentationStyle = .overCurrentContext
