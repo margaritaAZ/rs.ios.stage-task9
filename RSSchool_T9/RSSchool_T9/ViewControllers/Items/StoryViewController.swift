@@ -110,7 +110,6 @@ class StoryViewController: ItemViewController, UIScrollViewDelegate {
 //        } else {
 //            NSLayoutConstraint.activate([imagesCenterXConstraint!])
 //        }
-        
     }
     
     func getImagesLeadingConstraint() -> (leading: CGFloat, trailing: CGFloat)  {

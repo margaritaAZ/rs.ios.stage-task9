@@ -48,7 +48,7 @@ struct FillingData {
         .gallery(Gallery(coverImage: .init("abyssinian-0"), title: "Abyssinian cat", images: .init(base: "abyssinian", count: 6))),
             .gallery(Gallery(coverImage: .init("tvseries-0"), title: "TV series", images: .init(base: "tvseries", count: 4))),
         .story(Story(coverImage: .init("story-5"), title: .from("s5-title"), text: .from("s5-text"), paths: [.story5path1, .story5path2, .story5path3])),
-        .story(Story(coverImage: .init("story-6"), title: .from("s6-title"), text: .from("s6-text"), paths: [.story6path1, .story6path2]))
+        .story(Story(coverImage: .init("story-6"), title: .from("s6-title"), text: .from("s6-text"), paths: [.story6path1, .story6path2, .story6path3]))
         
     ]
 }
