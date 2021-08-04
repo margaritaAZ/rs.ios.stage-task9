@@ -30,6 +30,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = contentView.frame
+    }
+    
     func setupImageView() {
 //      image
         imageView.contentMode = .scaleAspectFill
@@ -71,9 +76,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
         itemTitle.font = UIFont(name: "Rockwell-Regular", size: 16)
         itemTitle.contentHuggingPriority(for: .vertical)
         
-        gradientView.addSubview(itemTitle)
+        imageView.addSubview(itemTitle)
         itemTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([itemTitle.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 150),
+        NSLayoutConstraint.activate([//itemTitle.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 150),
                                         itemTitle.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -30),
                                      itemTitle.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 10),
                                      itemTitle.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10)])
@@ -82,7 +87,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         itemType.font = UIFont(name: "Rockwell-Regular", size: 12)
         itemType.contentHuggingPriority(for: .vertical)
         
-        gradientView.addSubview(itemType)
+        imageView.addSubview(itemType)
         itemType.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([itemType.heightAnchor.constraint(equalToConstant: 14),
                                      itemType.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -13),

@@ -17,6 +17,14 @@ class ItemViewController: UIViewController {
     var closeButton: UIButton!
     var contentView: UIView!
     var line: UILabel!
+    var gradientLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.withAlphaComponent(1).cgColor]
+        layer.cornerRadius = 8
+        layer.locations = [0.60, 0.9, 1]
+        return layer
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +33,11 @@ class ItemViewController: UIViewController {
         setupScrollView()
         setupContentView()
         setupCloseButton()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = imageView.bounds
     }
     
     func setupScrollView() {
@@ -99,12 +112,8 @@ class ItemViewController: UIViewController {
                                      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
         
         //        gradient
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = imageView.frame
-        gradientLayer.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.withAlphaComponent(1).cgColor]
         
-        gradientLayer.cornerRadius = 10
-        gradientLayer.locations = [0.65, 0.9, 1]
+//        gradientLayer.frame = imageView.frame
         
         
         let gradientView = UIView()
