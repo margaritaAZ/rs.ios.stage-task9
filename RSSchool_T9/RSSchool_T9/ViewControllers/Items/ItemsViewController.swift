@@ -11,6 +11,7 @@ import UIKit
 
 class ItemsViewController: UIViewController {
     private var collectionView: UICollectionView!
+    let padding:CGFloat = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class ItemsViewController: UIViewController {
     
     func setupCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 40, left: 20, bottom: 50, right: 20)
+        flowLayout.sectionInset = UIEdgeInsets(top: 40, left: padding, bottom: 50, right: padding)
         flowLayout.minimumLineSpacing = 10
         flowLayout.minimumInteritemSpacing = 10
         
@@ -105,7 +106,7 @@ extension ItemsViewController: UICollectionViewDelegate {
     
     func getItemSize() -> (width:CGFloat, height:CGFloat) {
         let aspectRatio:CGFloat = 220/179
-        let paddings:CGFloat = 50
+        let paddings:CGFloat = padding*2 + 10
         let freeWidth = collectionView.frame.size.width - paddings
         var itemWidth = freeWidth/2
         var itemHeight = itemWidth*aspectRatio
@@ -128,7 +129,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if UIDevice.current.orientation.isLandscape{
             let itemSize = getItemSize()
-            return collectionView.frame.size.width - 60 - itemSize.width*2
+            return collectionView.frame.size.width - padding*5 - itemSize.width*2
         }
     return 10
     }
@@ -138,6 +139,13 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
             return 10
         }
         return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if UIDevice.current.orientation.isLandscape{
+            return UIEdgeInsets(top: 40, left: padding*2, bottom: 50, right: padding*2)
+        }
+    return UIEdgeInsets(top: 40, left: padding, bottom: 50, right: padding)
     }
 }
 

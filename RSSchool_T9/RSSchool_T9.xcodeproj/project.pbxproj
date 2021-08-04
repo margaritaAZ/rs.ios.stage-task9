@@ -25,6 +25,12 @@
 		2BB9F30E26AF5FA900F43852 /* story-4-path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB9F30D26AF5FA900F43852 /* story-4-path.swift */; };
 		2BB9F31026AF5FB300F43852 /* s4-text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BB9F30F26AF5FB300F43852 /* s4-text.txt */; };
 		2BB9F31226AF5FBE00F43852 /* s4-title.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BB9F31126AF5FBE00F43852 /* s4-title.txt */; };
+		F382F1AF26BB179500C9BC50 /* story-5-path.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382F1AE26BB179500C9BC50 /* story-5-path.swift */; };
+		F382F1B126BB17C200C9BC50 /* story-6-path.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382F1B026BB17C200C9BC50 /* story-6-path.swift */; };
+		F382F1B326BB181700C9BC50 /* s5-title.txt in Resources */ = {isa = PBXBuildFile; fileRef = F382F1B226BB181700C9BC50 /* s5-title.txt */; };
+		F382F1B526BB183200C9BC50 /* s6-title.txt in Resources */ = {isa = PBXBuildFile; fileRef = F382F1B426BB183200C9BC50 /* s6-title.txt */; };
+		F382F1B726BB18A200C9BC50 /* s5-text.txt in Resources */ = {isa = PBXBuildFile; fileRef = F382F1B626BB18A200C9BC50 /* s5-text.txt */; };
+		F382F1B926BB22B400C9BC50 /* s6-text.txt in Resources */ = {isa = PBXBuildFile; fileRef = F382F1B826BB22B400C9BC50 /* s6-text.txt */; };
 		F3BA38C126B1B38600EEC42D /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38C026B1B38600EEC42D /* ItemsViewController.swift */; };
 		F3BA38CA26B1B3ED00EEC42D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38C926B1B3ED00EEC42D /* SettingsViewController.m */; };
 		F3BA38CE26B1CD0700EEC42D /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BA38CD26B1CD0700EEC42D /* ImageCollectionViewCell.swift */; };
@@ -59,6 +65,12 @@
 		2BB9F30D26AF5FA900F43852 /* story-4-path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "story-4-path.swift"; sourceTree = "<group>"; };
 		2BB9F30F26AF5FB300F43852 /* s4-text.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "s4-text.txt"; sourceTree = "<group>"; };
 		2BB9F31126AF5FBE00F43852 /* s4-title.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "s4-title.txt"; sourceTree = "<group>"; };
+		F382F1AE26BB179500C9BC50 /* story-5-path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "story-5-path.swift"; sourceTree = "<group>"; };
+		F382F1B026BB17C200C9BC50 /* story-6-path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "story-6-path.swift"; sourceTree = "<group>"; };
+		F382F1B226BB181700C9BC50 /* s5-title.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "s5-title.txt"; sourceTree = "<group>"; };
+		F382F1B426BB183200C9BC50 /* s6-title.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "s6-title.txt"; sourceTree = "<group>"; };
+		F382F1B626BB18A200C9BC50 /* s5-text.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "s5-text.txt"; sourceTree = "<group>"; };
+		F382F1B826BB22B400C9BC50 /* s6-text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s6-text.txt"; sourceTree = "<group>"; };
 		F3BA38C026B1B38600EEC42D /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		F3BA38C826B1B3ED00EEC42D /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		F3BA38C926B1B3ED00EEC42D /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -133,6 +145,8 @@
 		2BB9F29226AE017D00F43852 /* Static */ = {
 			isa = PBXGroup;
 			children = (
+				F382F1AD26BB174E00C9BC50 /* story-6 */,
+				F382F1AC26BB173C00C9BC50 /* story-5 */,
 				2BB9F30C26AF5F9C00F43852 /* story-4 */,
 				2BB9F30326AF5D7E00F43852 /* story-3 */,
 				2BB9F2FC26AF554C00F43852 /* story-2 */,
@@ -179,6 +193,26 @@
 				2BB9F31126AF5FBE00F43852 /* s4-title.txt */,
 			);
 			path = "story-4";
+			sourceTree = "<group>";
+		};
+		F382F1AC26BB173C00C9BC50 /* story-5 */ = {
+			isa = PBXGroup;
+			children = (
+				F382F1AE26BB179500C9BC50 /* story-5-path.swift */,
+				F382F1B226BB181700C9BC50 /* s5-title.txt */,
+				F382F1B626BB18A200C9BC50 /* s5-text.txt */,
+			);
+			path = "story-5";
+			sourceTree = "<group>";
+		};
+		F382F1AD26BB174E00C9BC50 /* story-6 */ = {
+			isa = PBXGroup;
+			children = (
+				F382F1B026BB17C200C9BC50 /* story-6-path.swift */,
+				F382F1B826BB22B400C9BC50 /* s6-text.txt */,
+				F382F1B426BB183200C9BC50 /* s6-title.txt */,
+			);
+			path = "story-6";
 			sourceTree = "<group>";
 		};
 		F3BA38BD26B1B30700EEC42D /* ViewControllers */ = {
@@ -303,12 +337,16 @@
 				2BB9E76826AB605900112651 /* LaunchScreen.storyboard in Resources */,
 				2BB9F30726AF5D9D00F43852 /* s3-text.txt in Resources */,
 				2BB9F30926AF5DAF00F43852 /* s3-title.txt in Resources */,
+				F382F1B926BB22B400C9BC50 /* s6-text.txt in Resources */,
 				2BB9F31226AF5FBE00F43852 /* s4-title.txt in Resources */,
+				F382F1B526BB183200C9BC50 /* s6-title.txt in Resources */,
 				2BB9F29526AE01A300F43852 /* s1-title.txt in Resources */,
 				2BB9F31026AF5FB300F43852 /* s4-text.txt in Resources */,
 				2BB9F2FE26AF556600F43852 /* s2-title.txt in Resources */,
 				2BB9E76526AB605900112651 /* Assets.xcassets in Resources */,
+				F382F1B726BB18A200C9BC50 /* s5-text.txt in Resources */,
 				2BB9F30226AF57B500F43852 /* s2-text.txt in Resources */,
+				F382F1B326BB181700C9BC50 /* s5-title.txt in Resources */,
 				2BB9E76326AB605700112651 /* Main.storyboard in Resources */,
 				2BB9F29726AE01B800F43852 /* s1-text.txt in Resources */,
 			);
@@ -324,6 +362,7 @@
 				2BB9F30126AF557E00F43852 /* story-2-path.swift in Sources */,
 				F3BA38EE26B8439400EEC42D /* StrokeImagesView.swift in Sources */,
 				2BB9E75C26AB605700112651 /* AppDelegate.swift in Sources */,
+				F382F1B126BB17C200C9BC50 /* story-6-path.swift in Sources */,
 				2BB9F30B26AF5EEC00F43852 /* story-3-path.swift in Sources */,
 				F3BA38CA26B1B3ED00EEC42D /* SettingsViewController.m in Sources */,
 				F3BA38F026B8530700EEC42D /* GalleryViewController.swift in Sources */,
@@ -333,6 +372,7 @@
 				F3BA38E826B723CE00EEC42D /* StoryImageView.swift in Sources */,
 				F3BA38E426B6E56C00EEC42D /* StoryViewController.swift in Sources */,
 				F3BA38C126B1B38600EEC42D /* ItemsViewController.swift in Sources */,
+				F382F1AF26BB179500C9BC50 /* story-5-path.swift in Sources */,
 				F3BA38F626B94A8000EEC42D /* ImageDetailsViewController.swift in Sources */,
 				F3BA38CE26B1CD0700EEC42D /* ImageCollectionViewCell.swift in Sources */,
 				F3BA38F426B93F4F00EEC42D /* GalleryImageView.swift in Sources */,

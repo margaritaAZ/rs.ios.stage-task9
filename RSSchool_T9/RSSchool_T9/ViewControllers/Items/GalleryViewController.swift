@@ -13,6 +13,7 @@ class GalleryViewController: ItemViewController {
     var galleryData: Gallery!
     var imageCollection: UIView!
     var stackView = UIStackView()
+    var width:CGFloat = 0
     
     
     
@@ -26,6 +27,12 @@ class GalleryViewController: ItemViewController {
         setupCoverImage()
         imageView.image = galleryData.coverImage
         
+            if UIDevice.current.orientation.isLandscape {
+                width = view.safeAreaLayoutGuide.layoutFrame.size.height - padding*2
+            } else {
+                width = view.safeAreaLayoutGuide.layoutFrame.size.width - padding*2
+            }
+            
         setupImages()
         setConstraints()
     }
@@ -38,16 +45,17 @@ class GalleryViewController: ItemViewController {
         
         stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .equalCentering
         stackView.spacing = 20
 
         for i in 0..<galleryData.images.count {
             let imageView = GalleryImageView()
             imageView.setupImage(galleryData.images[i])
+            imageView.image.clipsToBounds = true
             imageView.translatesAutoresizingMaskIntoConstraints = true
-            let aspectRatio:CGFloat = 511/374
-            let width = view.safeAreaLayoutGuide.layoutFrame.size.width - padding*2
             
+            let aspectRatio:CGFloat = 511/374
+
             imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: width*aspectRatio).isActive = true
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:)))
@@ -67,11 +75,10 @@ class GalleryViewController: ItemViewController {
                                      imageCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                                      imageCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
         
-        NSLayoutConstraint.activate([stackView.leadingAnchor.constraint(equalTo: imageCollection.leadingAnchor),
-                                     stackView.trailingAnchor.constraint(equalTo: imageCollection.trailingAnchor),
-                                     stackView.topAnchor.constraint(equalTo: imageCollection.topAnchor),
+        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: imageCollection.topAnchor),
                                      stackView.bottomAnchor.constraint(equalTo: imageCollection.bottomAnchor),
-                                     stackView.widthAnchor.constraint(equalTo: imageCollection.widthAnchor)])
+                                     stackView.widthAnchor.constraint(equalToConstant: width),
+                                        stackView.centerXAnchor.constraint(equalTo: imageCollection.centerXAnchor)])
     }
     
     @objc private func didTapImageView(_ sender: UITapGestureRecognizer) {

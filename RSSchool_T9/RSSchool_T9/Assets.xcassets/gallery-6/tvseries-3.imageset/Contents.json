@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Rick_and_Morty_Season_1 (1).jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

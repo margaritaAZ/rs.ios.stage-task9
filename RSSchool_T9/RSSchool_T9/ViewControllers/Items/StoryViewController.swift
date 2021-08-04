@@ -27,6 +27,7 @@ class StoryViewController: ItemViewController, UIScrollViewDelegate {
         titleLabel.attributedText = NSMutableAttributedString(string: storyData.title, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         typeLabel.text = storyData.type
         storyText.attributedText = NSMutableAttributedString(string: storyData.text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+//        storyText.text = storyData.text
         setupCoverImage()
         imageView.image = storyData.coverImage
         setupAnimationScrollView()
@@ -69,9 +70,7 @@ class StoryViewController: ItemViewController, UIScrollViewDelegate {
         storyView.layer.cornerRadius = 8
         storyView.layer.borderWidth = 1
         storyView.layer.borderColor = UIColor.white.cgColor
-        
-        storyText = UILabel()
-        storyText.text = String.from("s1-text")
+
         storyText.numberOfLines = 0
         storyText.font = UIFont(name: "Rockwell-Regular", size: 24)
         storyText.textColor = .white
