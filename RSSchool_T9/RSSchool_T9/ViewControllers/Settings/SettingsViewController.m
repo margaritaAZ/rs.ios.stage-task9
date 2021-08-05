@@ -27,7 +27,7 @@
     
     // set default values
     self.isDrawStories = YES;
-    self.strokeColor = @"#E87AA4";
+    self.strokeColor = @"#F3AF22";
     
     [self setupTableView];
     
